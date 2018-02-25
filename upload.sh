@@ -1,11 +1,11 @@
 #!/bin/bash
 
 if [ -z "$MAJOR_MINOR" ]; then
-  MAJOR_MINOR="alpha"
+    MAJOR_MINOR="alpha"
 fi
 
-# Adding body to changelog
-CHANGELOG="\<b>Changelog for build ${MAJOR_MINOR}-${DRONE_BUILD_NUMBER}</b>
+# Adding body to changelog (intentional whitespace!!)
+CHANGELOG=" <b>Changelog for build ${MAJOR_MINOR}-${DRONE_BUILD_NUMBER}</b>
 $(cat changelog.txt)"
 
 # Preparing files to upload
