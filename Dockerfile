@@ -1,8 +1,9 @@
 FROM alpine
 
 RUN apk --no-cache add \
+        bash \
         curl \
-        bash
+        openssl
 
 ADD upload.sh /bin/
 RUN chmod +x /bin/upload.sh
