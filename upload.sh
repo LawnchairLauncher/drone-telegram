@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Check if changelog.txt exists, otherwise create a empty one
+if [ ! -f "changelog.txt" ]; then
+    echo "<b>Changelog for build ${MAJOR_MINOR}-${DRONE_BUILD_NUMBER}</b>${NEWLINE}No changelog found!" > changelog.txt
+fi
+
 cp app/build/outputs/apk/debug/app-debug.apk Lawnchair-alpha_$DRONE_BUILD_NUMBER.apk
 cp app/build/outputs/mapping/debug/mapping.txt proguard-alpha_$DRONE_BUILD_NUMBER.txt
 
