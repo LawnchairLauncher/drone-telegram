@@ -5,7 +5,7 @@ if [ -z "$MAJOR_MINOR" ]; then
 fi
 
 # Adding body to changelog
-CHANGELOG="\<b\>Changelog for build ${MAJOR_MINOR}-${DRONE_BUILD_NUMBER}\</b\>
+CHANGELOG="\<b>Changelog for build ${MAJOR_MINOR}-${DRONE_BUILD_NUMBER}</b>
 $(cat changelog.txt)"
 
 # Preparing files to upload
