@@ -8,7 +8,7 @@ fi
 CHANGELOG=" <b>Changelog for build ${MAJOR_MINOR}-${DRONE_BUILD_NUMBER}</b>
 $(cat changelog.txt)
 
-<a href=\"${DRONE_REPO_LINK}/compare/${DRONE_PREV_COMMIT_SHA}..${DRONE_COMMIT_SHA}\">View on GitHub</a>"
+<a href=\"${DRONE_REPO_LINK}/compare/${DRONE_PREV_COMMIT_SHA:0:8}...${DRONE_COMMIT_SHA:0:8}\">View on GitHub</a>"
 
 # Preparing files to upload
 cp app/build/outputs/apk/debug/app-debug.apk Lawnchair-${MAJOR_MINOR}_$DRONE_BUILD_NUMBER.apk
