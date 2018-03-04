@@ -11,8 +11,8 @@ $(cat changelog.txt)
 <a href=\"${DRONE_REPO_LINK}/compare/${DRONE_PREV_COMMIT_SHA:0:8}...${DRONE_COMMIT_SHA:0:8}\">View on GitHub</a>"
 
 # Preparing files to upload
-cp app/build/outputs/apk/debug/app-debug.apk Lawnchair-${MAJOR_MINOR}_$DRONE_BUILD_NUMBER.apk
-cp app/build/outputs/mapping/debug/mapping.txt proguard-${MAJOR_MINOR}_$DRONE_BUILD_NUMBER.txt
+cp app/build/outputs/apk/ci/app-ci.apk Lawnchair-${MAJOR_MINOR}_$DRONE_BUILD_NUMBER.apk
+cp app/build/outputs/mapping/ci/mapping.txt proguard-${MAJOR_MINOR}_$DRONE_BUILD_NUMBER.txt
 
 # Post build on Telegram
 curl -F chat_id="$CHANNEL_ID" -F sticker="CAADBQADKAADTBCSGmapM3AUlzaHAg" https://api.telegram.org/bot$BOT_TOKEN/sendSticker
