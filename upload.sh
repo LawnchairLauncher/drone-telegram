@@ -16,6 +16,16 @@ if [ -z "$PLUGIN_CHANNEL_ID" ]; then
     PLUGIN_CHANNEL_ID="-1001180711841"
 fi
 
+if [ -z "$DRONE_CACHE" ]; then
+    DRONE_CACHE="/cache/$DRONE_REPO_OWNER/$DRONE_REPO_NAME"
+fi
+
+# Check cache for previous commit hash
+LAST_COMMIT="$DRONE_CACHE/.last_commit"
+if [ -f "$LAST_COMMIT" ]; then
+    DRONE_PREV_COMMIT_SHA="$(cat $LAST_COMMIT)"
+fi
+
 # Adding body to changelog (intentional whitespace!!)
 CHANGELOG=" <b>Changelog for build ${MAJOR_MINOR}-${DRONE_BUILD_NUMBER}</b>
 $(cat changelog.txt)
