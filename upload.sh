@@ -21,11 +21,18 @@ if [ -f ".last_commit" ]; then
     DRONE_PREV_COMMIT_SHA="$(cat .last_commit)"
 fi
 
+# Check if this is a clean build
+if [ -f ".clean" ]; then
+    GITHUB_LINK="${DRONE_REPO_LINK}/commit/${DRONE_COMMIT_SHA}"
+else
+    GITHUB_LINK="${DRONE_REPO_LINK}/compare/${DRONE_PREV_COMMIT_SHA:0:8}...${DRONE_COMMIT_SHA:0:8}"
+fi
+
 # Adding body to changelog (intentional whitespace!!)
 CHANGELOG=" <b>Changelog for build ${MAJOR_MINOR}-${DRONE_BUILD_NUMBER}</b>
 $(cat changelog.txt)
 
-<a href=\"${DRONE_REPO_LINK}/compare/${DRONE_PREV_COMMIT_SHA:0:8}...${DRONE_COMMIT_SHA:0:8}\">View on GitHub</a>"
+<a href=\"${GITHUB_LINK}\">View on GitHub</a>"
 
 # Preparing files to upload
 cp $PLUGIN_APK_PATH Lawnchair-${MAJOR_MINOR}_$DRONE_BUILD_NUMBER.apk
