@@ -28,14 +28,14 @@ else
     GITHUB_LINK="${DRONE_REPO_LINK}/compare/${DRONE_PREV_COMMIT_SHA:0:8}...${DRONE_COMMIT_SHA:0:8}"
 fi
 
+# Fix dashes in MAJOR_MINOR to not break tags
+MAJOR_MINOR=$(echo "${MAJOR_MINOR}" | sed -r 's/-/_/g')
+
 # Adding body to changelog (intentional whitespace!!)
 CHANGELOG=" <b>Changelog for build ${MAJOR_MINOR}-${DRONE_BUILD_NUMBER}:</b>
 $(cat changelog.txt)
 
 <a href=\"${GITHUB_LINK}\">View on GitHub</a>"
-
-# Fix dashes in MAJOR_MINOR to not break tags
-CAPTION=$(echo "${MAJOR_MINOR}" | sed -r 's/-/_/g')
 
 # Preparing files to upload
 cp $PLUGIN_APK_PATH Lawnchair-${MAJOR_MINOR}_$DRONE_BUILD_NUMBER.apk
