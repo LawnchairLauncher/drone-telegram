@@ -37,17 +37,17 @@ MAJOR_MINOR=$(echo "${MAJOR_MINOR}" | sed -r 's/-/_/g')
 
 # Adding body to changelog (intentional whitespace!!)
 CHANGELOG=" <b>Changelog for build ${MAJOR_MINOR}-${DRONE_BUILD_NUMBER}:</b>
-$(cat changelog.txt)
-
-<a href=\"${GITHUB_LINK}\">View on GitHub</a>"
+$(cat changelog.txt)"
 
 # Preparing files to upload
 cp $PLUGIN_APK_PATH Lawnchair-${MAJOR_MINOR}_$DRONE_BUILD_NUMBER.apk
 cp $PLUGIN_MAPPING_PATH proguard-${MAJOR_MINOR}_$DRONE_BUILD_NUMBER.txt
 
-# Check if build should be uploaded to public
+# Check if build should be uploaded to public, else add link to changelog
 if [ $DRONE_BRANCH = $PLUGIN_PUBLIC_BRANCH ]; then
-    CHANNEL_ID=$PLUGIN_CHANNEL_ID
+    CHANNEL_ID=${PLUGIN_CHANNEL_ID}
+else
+    CHANGELOG=${CHANGELOG}$'\n\n'"<a href=\"${GITHUB_LINK}\">View on GitHub</a>"
 fi
 
 # Post build on Telegram
