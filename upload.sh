@@ -56,4 +56,6 @@ curl -F chat_id="$CHANNEL_ID" -F disable_notification="true" -F document=@"Lawnc
 curl -F chat_id="$CHANNEL_ID" -F text="$CHANGELOG" -F parse_mode="HTML" -F disable_web_page_preview="true" https://api.telegram.org/bot$BOT_TOKEN/sendMessage
 
 # Send proguard file to developer
-curl -F chat_id="$DEV_CHANNEL_ID" -F document=@"proguard-${MAJOR_MINOR}_$DRONE_BUILD_NUMBER.txt" https://api.telegram.org/bot$BOT_TOKEN/sendDocument
+if [ $DRONE_BUILD_EVENT = "tag" ]; then
+    curl -F chat_id="$DEV_CHANNEL_ID" -F document=@"proguard-${MAJOR_MINOR}_$DRONE_BUILD_NUMBER.txt" https://api.telegram.org/bot$BOT_TOKEN/sendDocument
+fi
