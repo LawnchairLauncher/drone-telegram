@@ -12,6 +12,10 @@ if [ -z "$PLUGIN_MAPPING_PATH" ]; then
     PLUGIN_MAPPING_PATH="app/build/outputs/mapping/debug/mapping.txt"
 fi
 
+if [ -z "$PLUGIN_FILENAME" ]; then
+    PLUGIN_FILENAME="Lawnchair"
+fi
+
 if [ -z "$PLUGIN_CHANNEL_ID" ]; then
     PLUGIN_CHANNEL_ID="-1001180711841"
 fi
@@ -40,7 +44,7 @@ CHANGELOG=" <b>Changelog for build ${MAJOR_MINOR}-${DRONE_BUILD_NUMBER}:</b>
 $(cat changelog.txt)"
 
 # Preparing files to upload
-cp $PLUGIN_APK_PATH Lawnchair-${MAJOR_MINOR}_$DRONE_BUILD_NUMBER.apk
+cp $PLUGIN_APK_PATH ${PLUGIN_FILENAME}-${MAJOR_MINOR}_$DRONE_BUILD_NUMBER.apk
 cp $PLUGIN_MAPPING_PATH proguard-${MAJOR_MINOR}_$DRONE_BUILD_NUMBER.txt
 
 # Check if build should be uploaded to public, else add link to changelog
@@ -52,7 +56,7 @@ fi
 
 # Post build on Telegram
 curl -F chat_id="$CHANNEL_ID" -F disable_notification="true" -F sticker="CAADBAADcQAE8E4VflNGPzVDjI0C" https://api.telegram.org/bot$BOT_TOKEN/sendSticker
-curl -F chat_id="$CHANNEL_ID" -F disable_notification="true" -F document=@"Lawnchair-${MAJOR_MINOR}_$DRONE_BUILD_NUMBER.apk" -F caption="#${MAJOR_MINOR}" https://api.telegram.org/bot$BOT_TOKEN/sendDocument
+curl -F chat_id="$CHANNEL_ID" -F disable_notification="true" -F document=@"${PLUGIN_FILENAME}-${MAJOR_MINOR}_$DRONE_BUILD_NUMBER.apk" -F caption="#${MAJOR_MINOR}" https://api.telegram.org/bot$BOT_TOKEN/sendDocument
 curl -F chat_id="$CHANNEL_ID" -F text="$CHANGELOG" -F parse_mode="HTML" -F disable_web_page_preview="true" https://api.telegram.org/bot$BOT_TOKEN/sendMessage
 
 # Send proguard file to developer
