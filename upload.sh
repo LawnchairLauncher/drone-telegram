@@ -16,6 +16,10 @@ if [ -z "$PLUGIN_FILENAME" ]; then
     PLUGIN_FILENAME="Lawnchair"
 fi
 
+if [ -z "$PLUGIN_STICKER" ]; then
+    PLUGIN_STICKER="CAADBAADcQAE8E4VflNGPzVDjI0C"
+fi
+
 if [ -z "$PLUGIN_CHANNEL_ID" ]; then
     PLUGIN_CHANNEL_ID="-1001180711841"
 fi
@@ -55,7 +59,7 @@ else
 fi
 
 # Post build on Telegram
-curl -F chat_id="$CHANNEL_ID" -F disable_notification="true" -F sticker="CAADBAADcQAE8E4VflNGPzVDjI0C" https://api.telegram.org/bot$BOT_TOKEN/sendSticker
+curl -F chat_id="$CHANNEL_ID" -F disable_notification="true" -F sticker="${PLUGIN_STICKER}" https://api.telegram.org/bot$BOT_TOKEN/sendSticker
 curl -F chat_id="$CHANNEL_ID" -F disable_notification="true" -F document=@"${PLUGIN_FILENAME}-${MAJOR_MINOR}_$DRONE_BUILD_NUMBER.apk" -F caption="#${MAJOR_MINOR}" https://api.telegram.org/bot$BOT_TOKEN/sendDocument
 curl -F chat_id="$CHANNEL_ID" -F text="$CHANGELOG" -F parse_mode="HTML" -F disable_web_page_preview="true" https://api.telegram.org/bot$BOT_TOKEN/sendMessage
 
