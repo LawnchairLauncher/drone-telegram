@@ -17,7 +17,7 @@ if [ -z "$PLUGIN_FILENAME" ]; then
 fi
 
 if [ -z "$PLUGIN_STICKER" ]; then
-    PLUGIN_STICKER="CAADBAADcQAE8E4VflNGPzVDjI0C"
+    PLUGIN_STICKER="CAADBAADcgAE8E4Vmetq0-JTeGYC"
 fi
 
 if [ -z "$PLUGIN_CHANNEL_ID" ]; then
