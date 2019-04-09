@@ -41,7 +41,7 @@ else
 fi
 
 # Fix dashes in MAJOR_MINOR to not break tags
-MAJOR_MINOR=$(echo "${MAJOR_MINOR}" | sed -r 's/-/_/g')
+MAJOR_MINOR=$(echo "${MAJOR_MINOR}" | sed -r 's/-|\//_/g')
 
 # Adding body to changelog (intentional whitespace!!)
 CHANGELOG=" <b>Changelog for build ${MAJOR_MINOR}-${DRONE_BUILD_NUMBER}:</b>
